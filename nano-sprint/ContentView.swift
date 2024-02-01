@@ -10,12 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @State private var timerIsActive = false
     @State private var remainingTime: TimeInterval = 0
+    @State private var finishTime: Date = Date()
     
     static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.timeStyle = .medium // Use a format like "1:54 PM"
+        formatter.dateFormat = "HH:mm" // Use a format like "13:54"
         return formatter
     }()
+
     
     static let remainingTimeFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -30,6 +32,7 @@ struct ContentView: View {
                 VStack {
                     Text(getTime())
                     Text(getRemainingTime())
+                    Text(getFinishTime())
                 }
                 .padding()
                 .frame(width: geometry.size.width, height: geometry.size.height)
@@ -53,6 +56,10 @@ struct ContentView: View {
         return ContentView.remainingTimeFormatter.string(from: remainingTime) ?? "nil"
     }
     
+    func getFinishTime() -> String {
+        return ContentView.timeFormatter.string(from: finishTime)
+    }
+    
     func runTimer() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             remainingTime -= 1
@@ -61,6 +68,7 @@ struct ContentView: View {
     
     func resetTimer() {
         remainingTime = 1500
+        finishTime = Date() + remainingTime
     }
 }
 
