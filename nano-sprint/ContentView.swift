@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var timerIsActive = false
     @State private var remainingTime: TimeInterval = 0
     @State private var finishTime: Date = Date()
+    @State private var color: Color = Color.white
     
     static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -36,7 +37,7 @@ struct ContentView: View {
                 }
                 .padding()
                 .frame(width: geometry.size.width, height: geometry.size.height)
-                .background(Color.white)
+                .background(color)
                 .onAppear() {
                     runTimer()
                 }
@@ -63,13 +64,19 @@ struct ContentView: View {
     func runTimer() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             remainingTime -= 1
+            if remainingTime < 0 {
+                color = Color.red
+            }
         }
+
     }
     
     func resetTimer() {
         remainingTime = 1500
         finishTime = Date() + remainingTime
+        color = Color.mint
     }
+    
 }
 
 #Preview {
