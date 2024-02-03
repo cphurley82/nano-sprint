@@ -22,7 +22,7 @@ struct ContentView: View {
     
     static let remainingTimeFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .second]
+        formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
         return formatter
     }()
