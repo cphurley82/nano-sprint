@@ -15,7 +15,7 @@ struct ContentView: View {
     
     static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm" // Use a format like "13:54"
+        formatter.dateFormat = "h:mm a" // Use a format like "13:54"
         return formatter
     }()
 
@@ -28,7 +28,7 @@ struct ContentView: View {
     }()
     
     var body: some View {
-        TimelineView(.periodic(from: Date.now, by: 0.1)) { timeline in
+        TimelineView(.periodic(from: Date.now, by: 0.5)) { timeline in
             GeometryReader { geometry in
                 VStack {
                     Text(getTime())
